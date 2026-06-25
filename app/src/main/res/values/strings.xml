@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">MyFastingApp</string>
+    <string name="widget_description">MyFastingApp timer widget</string>
+    <string name="widget_idle_title">Ready to fast</string>
+    <string name="widget_progress_ring">Fasting progress ring</string>
+    <string name="widget_start">Start</string>
+    <string name="widget_end">End</string>
+    <string name="notification_channel_status">Fasting status</string>
+    <string name="notification_channel_alerts">Fasting milestones</string>
+</resources>

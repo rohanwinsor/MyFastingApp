@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="108" height="108" viewBox="0 0 108 108" role="img" aria-labelledby="title desc">
+  <title id="title">MyFastingApp icon</title>
+  <desc id="desc">An indigo fasting timer icon with a cream face, progress ring, and simple clock hand.</desc>
+  <rect width="108" height="108" fill="#3230B8"/>
+  <circle cx="54" cy="54" r="42" fill="#FAF7F0"/>
+  <path d="M54 23a31 31 0 1 1 0 62a31 31 0 1 1 0-62Zm0 12a19 19 0 1 0 0 38a19 19 0 1 0 0-38Z" fill="#E9E8FF" fill-rule="evenodd"/>
+  <path d="M54 85C36.88 85 23 71.12 23 54S36.88 23 54 23c9.72 0 18.4 4.47 24.09 11.46" fill="none" stroke="#3230B8" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M54 42a6 6 0 0 0-6 6v10.4c0 2.3 1.31 4.4 3.37 5.42l12.94 6.47a6 6 0 1 0 5.36-10.72L60 54.74V48a6 6 0 0 0-6-6Z" fill="#3230B8"/>
+</svg>

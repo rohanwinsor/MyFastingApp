@@ -1,0 +1,9 @@
+<resources>
+    <style name="Theme.MyFastingApp" parent="@android:style/Theme.Material.Light.NoActionBar">
+        <item name="android:fontFamily">sans</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:navigationBarColor">@color/myfastingapp_surface</item>
+        <item name="android:statusBarColor">@color/myfastingapp_surface</item>
+        <item name="android:colorAccent">@color/myfastingapp_teal</item>
+    </style>
+</resources>

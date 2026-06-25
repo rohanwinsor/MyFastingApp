@@ -1,0 +1,26 @@
+AutoName: MyFastingApp
+Categories:
+  - Time
+  - Sports & Health
+License: GPL-3.0-only
+AuthorName: MyFastingApp contributors
+Summary: Fully offline fasting tracker with an Android widget
+Description: |-
+  MyFastingApp tracks intermittent fasts on-device, with local history,
+  statistics, weight trends, reminders, import/export, and a home-screen widget.
+
+  It has no accounts, analytics, ads, cloud sync, proprietary SDKs, or
+  network permission.
+RepoType: git
+Repo: https://github.com/rohanwinsor/MyFastingApp.git
+Builds:
+  - versionName: 1.0.0
+    versionCode: 1
+    commit: v1.0.0
+    subdir: app
+    gradle:
+      - yes
+AutoUpdateMode: Version
+UpdateCheckMode: Tags
+CurrentVersion: 1.0.0
+CurrentVersionCode: 1

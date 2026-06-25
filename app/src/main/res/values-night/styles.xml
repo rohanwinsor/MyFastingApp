@@ -1,0 +1,8 @@
+<resources>
+    <style name="Theme.MyFastingApp" parent="@android:style/Theme.Material.NoActionBar">
+        <item name="android:fontFamily">sans</item>
+        <item name="android:navigationBarColor">#101820</item>
+        <item name="android:statusBarColor">#101820</item>
+        <item name="android:colorAccent">@color/myfastingapp_teal</item>
+    </style>
+</resources>

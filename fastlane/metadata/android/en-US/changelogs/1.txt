@@ -1,0 +1,7 @@
+1.0.0 initial release.
+
+- Offline fasting timer with editable active fasts and history.
+- Week, month, and year trends for fasting and weight.
+- Local weight logs, target weight, and kg/lb setting.
+- JSON backup/import and CSV session export.
+- Home-screen widget and local fasting notifications.
