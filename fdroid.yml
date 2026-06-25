@@ -1,9 +1,13 @@
 AutoName: MyFastingApp
 Categories:
-  - Time
   - Sports & Health
+  - Timer
 License: GPL-3.0-only
 AuthorName: MyFastingApp contributors
+SourceCode: https://github.com/rohanwinsor/MyFastingApp
+IssueTracker: https://github.com/rohanwinsor/MyFastingApp/issues
+Changelog: https://github.com/rohanwinsor/MyFastingApp/releases
+Donate: https://buymeacoffee.com/rohanwinsor
 Summary: Fully offline fasting tracker with an Android widget
 Description: |-
   MyFastingApp tracks intermittent fasts on-device, with local history,
