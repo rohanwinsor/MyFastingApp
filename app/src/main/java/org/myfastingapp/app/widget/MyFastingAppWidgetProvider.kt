@@ -117,10 +117,6 @@ class MyFastingAppWidgetProvider : AppWidgetProvider() {
                 "${TimerMath.formatDuration(progress.remainingMillis)} remaining"
             },
         )
-        views.setTextViewText(
-            R.id.widget_detail,
-            "${phase.body} ${active.planName} target - ${TimerMath.formatMinutes((active.targetSeconds / 60L).toInt())}",
-        )
         return views
     }
 

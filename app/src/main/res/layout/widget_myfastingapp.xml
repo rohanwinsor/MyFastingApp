@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/widget_background"
     android:orientation="vertical"
-    android:padding="14dp">
+    android:padding="10dp">
 
     <LinearLayout
         android:id="@+id/widget_idle_panel"
@@ -47,14 +47,13 @@
         android:id="@+id/widget_active_panel"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center_horizontal"
+        android:gravity="center"
         android:orientation="vertical"
         android:visibility="gone">
 
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="170dp"
-            android:layout_marginTop="2dp">
+            android:layout_height="148dp">
 
             <ImageView
                 android:id="@+id/widget_ring"
@@ -69,7 +68,7 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:orientation="vertical"
-                android:paddingHorizontal="28dp">
+                android:paddingHorizontal="18dp">
 
                 <TextView
                     android:id="@+id/widget_phase"
@@ -79,7 +78,7 @@
                     android:gravity="center"
                     android:maxLines="1"
                     android:textColor="@color/myfastingapp_ink"
-                    android:textSize="14sp"
+                    android:textSize="13sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -100,7 +99,7 @@
                     android:fontFamily="sans"
                     android:gravity="center"
                     android:textColor="@color/myfastingapp_ink"
-                    android:textSize="26sp"
+                    android:textSize="24sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -115,23 +114,12 @@
             </LinearLayout>
         </FrameLayout>
 
-        <TextView
-            android:id="@+id/widget_detail"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:ellipsize="end"
-            android:gravity="center"
-            android:maxLines="1"
-            android:textColor="@color/myfastingapp_slate"
-            android:textSize="12sp" />
-
         <Button
             android:id="@+id/widget_end"
             style="?android:attr/buttonBarButtonStyle"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginTop="10dp"
+            android:layout_width="112dp"
+            android:layout_height="38dp"
+            android:layout_marginTop="4dp"
             android:text="@string/widget_end" />
     </LinearLayout>
 </LinearLayout>

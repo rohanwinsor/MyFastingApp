@@ -6,6 +6,7 @@ import android.os.Build
 import android.widget.NumberPicker
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -263,10 +264,11 @@ private fun TimerStatsStrip(uiState: MyFastingAppUiState, now: Long) {
 @Composable
 private fun TimerStatPill(label: String, value: String, modifier: Modifier = Modifier) {
     Surface(
-        modifier = modifier.height(58.dp),
+        modifier = modifier.height(56.dp),
         shape = RoundedCornerShape(18.dp),
-        color = Color.White.copy(alpha = 0.88f),
-        shadowElevation = 1.dp,
+        color = Cream.copy(alpha = 0.35f),
+        border = BorderStroke(1.dp, Color(0xFFE7DED6)),
+        shadowElevation = 0.dp,
     ) {
         Column(
             modifier = Modifier.padding(horizontal = 8.dp, vertical = 8.dp),
