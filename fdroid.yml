@@ -8,13 +8,6 @@ SourceCode: https://github.com/rohanwinsor/MyFastingApp
 IssueTracker: https://github.com/rohanwinsor/MyFastingApp/issues
 Changelog: https://github.com/rohanwinsor/MyFastingApp/releases
 Donate: https://buymeacoffee.com/rohanwinsor
-Summary: Fully offline fasting tracker with an Android widget
-Description: |-
-  MyFastingApp tracks intermittent fasts on-device, with local history,
-  statistics, weight trends, reminders, import/export, and a home-screen widget.
-
-  It has no accounts, analytics, ads, cloud sync, proprietary SDKs, or
-  network permission.
 RepoType: git
 Repo: https://github.com/rohanwinsor/MyFastingApp.git
 Builds:

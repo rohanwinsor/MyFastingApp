@@ -1,1 +1,1 @@
-Offline fasting, weight trends, reminders, and widget.
+Fully offline fasting tracker with an Android widget
