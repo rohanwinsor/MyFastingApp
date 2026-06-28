@@ -17,6 +17,7 @@ Confirm:
 - `versionName` and `versionCode` increased.
 - Fastlane metadata and the matching changelog are current.
 - The manifest has no `INTERNET` or `ACCESS_NETWORK_STATE` permission.
+- The APK signing block contains no opaque Google Play dependency metadata.
 - The release APK is signed with the existing MyFastingApp key.
 - The working tree is clean and the release commit is pushed.
 

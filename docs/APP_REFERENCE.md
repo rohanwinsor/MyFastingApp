@@ -10,6 +10,7 @@ MyFastingApp is a GPL-3.0-only, offline-first Android fasting tracker. The packa
 - Only one active fast may exist at a time.
 - Fasting and weight timestamps are stored as epoch milliseconds.
 - Release builds enable minification and resource shrinking.
+- Release artifacts omit Google Play dependency metadata from the APK signing block.
 
 ## Architecture
 
