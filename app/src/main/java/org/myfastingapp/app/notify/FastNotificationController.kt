@@ -49,18 +49,15 @@ class FastNotificationController(private val context: Context) {
             }
             builder
                 .setContentTitle("${TimerMath.formatProgressPercent(progress.progressFraction)} - ${phase.title}")
-                .setContentText("${TimerMath.formatDurationWithSeconds(progress.elapsedMillis)} elapsed - $remainingText")
+                .setContentText("${TimerMath.formatDuration(progress.elapsedMillis)} elapsed - $remainingText")
                 .setStyle(
                     NotificationCompat.BigTextStyle().bigText(
-                        "${session.planName}: ${TimerMath.formatDurationWithSeconds(progress.elapsedMillis)} elapsed, $remainingText. ${phase.body}",
+                        "${session.planName}: ${TimerMath.formatDuration(progress.elapsedMillis)} elapsed, $remainingText. ${phase.body}",
                     ),
                 )
                 .setProgress(100, progress.progressPercent.coerceAtMost(100), false)
                 .setColor(phase.colorArgb)
-                .setWhen(nowEpochMillis - progress.elapsedMillis)
-                .setShowWhen(true)
-                .setUsesChronometer(true)
-                .setChronometerCountDown(false)
+                .setShowWhen(false)
                 .addAction(R.drawable.ic_myfastingapp, "End fast", actionIntent(ReminderReceiver.ACTION_NOTIFICATION_END, REQUEST_END))
         }
 
@@ -75,7 +72,7 @@ class FastNotificationController(private val context: Context) {
         val notification = NotificationCompat.Builder(context, MyFastingAppApplication.FASTING_ALERTS_CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_myfastingapp)
             .setContentTitle("$percent% fast progress")
-            .setContentText("${phase.title}: ${TimerMath.formatDurationWithSeconds(progress.elapsedMillis)} elapsed.")
+            .setContentText("${phase.title}: ${TimerMath.formatDuration(progress.elapsedMillis)} elapsed.")
             .setStyle(NotificationCompat.BigTextStyle().bigText("${session.planName} is $percent% complete. ${phase.body}"))
             .setColor(phase.colorArgb)
             .setContentIntent(openAppIntent())

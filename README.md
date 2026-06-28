@@ -10,7 +10,7 @@ MyFastingApp is a fully offline, GPLv3 Android fasting tracker. It has no accoun
 - Local weight logging, target weight, kg/lb setting, trend graph, and simple on-device projection.
 - Week, month, and year trend views for fasting and weight.
 - Home-screen widget with idle and active states, progress ring, and start/end/open controls.
-- Ongoing local notification while fasting plus milestone notifications at 25%, 50%, 75%, 90%, 95%, and 100%.
+- Low-power local status notification while fasting plus milestone notifications at 25%, 50%, 75%, 90%, 95%, and 100%.
 - Local JSON backup import/export and CSV session export through Android's Storage Access Framework.
 
 ## Build
@@ -28,7 +28,7 @@ Current release outputs:
 - Signed release APK: `app/build/outputs/apk/release/app-release.apk`
 - Signed release bundle: `app/build/outputs/bundle/release/app-release.aab`
 
-The release build enables code minification and resource shrinking. Google Play upload signing is configured through local ignored files: `keystore.properties` and `release/signing/myfastingapp-upload.jks`.
+The release build enables code minification and resource shrinking. Release signing is configured through local ignored files: `keystore.properties` and `release/signing/myfastingapp-upload.jks`.
 
 ## Offline And Privacy Guarantees
 
@@ -40,7 +40,7 @@ The only declared app permissions are local notification support and reboot hand
 
 - `docs/APP_REFERENCE.md` explains architecture, data model, backup format, notifications, widget behavior, and release invariants.
 - `docs/TEST_REPORT.md` records the current release-hardening test pass and screenshot walkthrough.
-- `docs/RELEASE_CHECKLIST.md` lists the remaining Google Play publishing steps.
+- `docs/RELEASE_CHECKLIST.md` documents the F-Droid and reproducible-build release flow.
 
 ## License
 

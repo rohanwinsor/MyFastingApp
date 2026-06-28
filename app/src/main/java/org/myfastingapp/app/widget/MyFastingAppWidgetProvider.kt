@@ -6,7 +6,6 @@ import android.appwidget.AppWidgetProvider
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
-import android.os.SystemClock
 import android.view.View
 import android.widget.RemoteViews
 import kotlinx.coroutines.CoroutineScope
@@ -72,9 +71,7 @@ class MyFastingAppWidgetProvider : AppWidgetProvider() {
                 app.container.repository.repairActivePlanTarget()
                 val active = app.container.repository.activeSession.first()
                 val settings = app.container.settingsStore.settings.first()
-                appWidgetIds.forEach { id ->
-                    manager.updateAppWidget(id, buildViews(context, active, settings))
-                }
+                manager.updateAppWidget(appWidgetIds, buildViews(context, active, settings))
             } finally {
                 onDone()
             }
@@ -99,7 +96,6 @@ class MyFastingAppWidgetProvider : AppWidgetProvider() {
 
         val now = System.currentTimeMillis()
         val progress = TimerMath.progress(active.startEpochMillis, active.targetSeconds, now)
-        val elapsedRealtimeBase = SystemClock.elapsedRealtime() - progress.elapsedMillis
         val phase = FastingPhases.forElapsed(progress.elapsedMillis)
 
         views.setViewVisibility(R.id.widget_idle_panel, View.GONE)
@@ -107,8 +103,7 @@ class MyFastingAppWidgetProvider : AppWidgetProvider() {
         views.setImageViewBitmap(R.id.widget_ring, WidgetProgressRenderer.render(context, progress.progressFraction, phase.colorArgb))
         views.setTextViewText(R.id.widget_phase, phase.title)
         views.setTextViewText(R.id.widget_status, TimerMath.formatProgressPercent(progress.progressFraction))
-        views.setChronometer(R.id.widget_time, elapsedRealtimeBase, null, true)
-        views.setChronometerCountDown(R.id.widget_time, false)
+        views.setTextViewText(R.id.widget_time, TimerMath.formatDuration(progress.elapsedMillis))
         views.setTextViewText(
             R.id.widget_remaining,
             if (progress.targetReached) {

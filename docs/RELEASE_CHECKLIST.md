@@ -1,83 +1,90 @@
-# MyFastingApp Google Play Release Checklist
+# MyFastingApp F-Droid Release Checklist
 
-MyFastingApp 1.0.0 is prepared for Google Play publishing. F-Droid is not part of the current release path.
+MyFastingApp is distributed through F-Droid. Releases are built from source by
+F-Droid and verified against the signed APK attached to the matching GitHub
+release.
 
-## Local Release Build
+## Before Tagging
 
-From the repository root:
+Run from the repository root:
 
 ```powershell
-.\gradlew.bat check assembleRelease bundleRelease --stacktrace
+.\gradlew.bat check lint assembleRelease --stacktrace
 ```
 
-Current Play-ready outputs:
+Confirm:
 
-- Signed release AAB: `app/build/outputs/bundle/release/app-release.aab`
-- Signed release APK for local install testing: `app/build/outputs/apk/release/app-release.apk`
+- `versionName` and `versionCode` increased.
+- Fastlane metadata and the matching changelog are current.
+- The manifest has no `INTERNET` or `ACCESS_NETWORK_STATE` permission.
+- The release APK is signed with the existing MyFastingApp key.
+- The working tree is clean and the release commit is pushed.
 
-The release build is minified, resource-shrunk, and signed with the local upload key configured in `keystore.properties`.
-
-## Signing
+## Signing Key
 
 Private local files:
 
 - `release/signing/myfastingapp-upload.jks`
 - `keystore.properties`
 
-These files are ignored by git. Back them up somewhere private before uploading the first release.
+Both files are ignored by git. Never commit or upload either file. Keep at least
+two encrypted backups in separate locations and retain the passwords in a
+password manager. Losing this key prevents publishing compatible signed updates.
 
-Upload certificate:
+Public certificate:
 
 - Owner: `CN=MyFastingApp Upload, O=MyFastingApp, C=US`
-- SHA-1: `33:3F:52:35:2D:EF:64:67:7E:2B:1B:D1:F8:CF:77:D2:FA:09:9D:52`
-- SHA-256: `C2:DC:03:FB:3F:5B:19:93:A0:EB:98:6C:9B:9F:5B:BD:C1:BF:2E:D1:25:E1:5A:A0:F1:8D:92:86:B3:27:E4:03`
+- SHA-256: `c2dc03fb3f5b1993a0eb986c9b9f5bbdc1bf2ed125e15aa0f18d9286b327e403`
 
-For a new Google Play app, upload the signed AAB and use Play App Signing. Google Play will protect the app signing key; this local key remains the upload key for future updates.
+Verify a release APK with:
 
-## Google Play Console Steps
+```powershell
+apksigner verify --print-certs app\build\outputs\apk\release\app-release.apk
+```
 
-1. Create the Play Console app with package `org.myfastingapp.app`.
-2. Choose App Bundle upload / Play App Signing.
-3. Upload `app/build/outputs/bundle/release/app-release.aab` to Internal testing first.
-4. Complete Store listing using `fastlane/metadata/android/en-US`.
-5. Upload final screenshots from `release/screenshots/phone` after one last device walkthrough.
-6. Complete App content:
-   - Privacy policy URL.
-   - Data Safety.
-   - Content rating questionnaire.
-   - Target audience.
-   - Ads declaration: no ads.
-7. Run the Play pre-launch report.
-8. Fix any crash, policy, privacy, accessibility, or device-compatibility findings.
-9. Promote from Internal testing to Closed/Open testing or Production.
+## Publish Upstream Binary
 
-## Data Safety
+1. Tag the exact release commit as `v<versionName>` and push the tag.
+2. Rename the signed APK to `MyFastingApp-<versionName>.apk`.
+3. Create the matching GitHub release and attach that APK.
+4. Confirm the versioned download URL works without authentication:
+   `https://github.com/rohanwinsor/MyFastingApp/releases/download/v%v/MyFastingApp-%v.apk`
 
-MyFastingApp has no accounts, ads, analytics, SDK telemetry, cloud sync, or internet permission. App data is stored locally and can be exported/imported only when the user chooses files through Android system pickers.
+Do not rebuild between verification and upload. The attached APK must be the
+signed artifact produced from the tagged release commit.
 
-Recommended Play Data Safety posture:
+## F-Droid Metadata
 
-- Data collection: no data collected.
-- Data sharing: no data shared.
-- Encryption in transit: not applicable because the app does not transmit data.
-- Data deletion: users can delete all local app data from Settings.
+The fdroiddata entry must contain:
 
-## Store Privacy Text
+```yaml
+Binaries: https://github.com/rohanwinsor/MyFastingApp/releases/download/v%v/MyFastingApp-%v.apk
+AllowedAPKSigningKeys: c2dc03fb3f5b1993a0eb986c9b9f5bbdc1bf2ed125e15aa0f18d9286b327e403
+```
 
-Use `PRIVACY.md` as the policy source, but publish it at a stable HTTPS URL before submitting to review. Replace placeholder contact details with a real support email.
+Each `Builds` entry must use the full source commit hash, not a tag or branch.
+After editing metadata, run:
+
+```powershell
+fdroid rewritemeta org.myfastingapp.app
+fdroid lint org.myfastingapp.app
+```
+
+F-Droid builds the unsigned APK from source, compares its contents with the
+upstream signed APK, verifies the allowed certificate, and publishes the
+upstream binary only when verification succeeds.
 
 ## Release Notes
 
-Initial 1.0.0 highlights:
+Version 1.0.1:
 
-- Offline fasting timer with editable active fasts and history.
-- Week, month, and year fasting and weight trends.
-- Local weight logging with target projection and kg/lb settings.
-- JSON backup/import and CSV session export.
-- Home-screen widget and local fasting notifications.
+- Stops the visible timer when the app is backgrounded.
+- Removes ten-minute background polling and continuous background chronometers.
+- Keeps milestone alerts while making phase refreshes non-waking.
+- Reduces duplicate widget rendering work.
 
-## Official References
+## References
 
-- Google Play App Signing: https://support.google.com/googleplay/android-developer/answer/9842756
+- F-Droid build metadata: https://f-droid.org/docs/Build_Metadata_Reference/
+- F-Droid reproducible builds: https://f-droid.org/docs/Reproducible_Builds/
 - Android app signing: https://developer.android.com/studio/publish/app-signing
-- Play Data Safety: https://support.google.com/googleplay/android-developer/answer/10787469

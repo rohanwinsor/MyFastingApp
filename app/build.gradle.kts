@@ -17,13 +17,14 @@ val keystoreProperties = Properties().apply {
 android {
     namespace = "org.myfastingapp.app"
     compileSdk = 36
+    buildToolsVersion = "36.0.0"
 
     defaultConfig {
         applicationId = "org.myfastingapp.app"
         minSdk = 26
         targetSdk = 36
-        versionCode = 1
-        versionName = "1.0.0"
+        versionCode = 2
+        versionName = "1.0.1"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -85,6 +86,7 @@ dependencies {
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.datastore.preferences)
+    implementation(libs.androidx.lifecycle.runtime.compose)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.androidx.room.ktx)

@@ -1,6 +1,6 @@
 # MyFastingApp Release Test Report
 
-Date: 2026-06-25
+Date: 2026-06-28
 
 Device target used for prior manual checks: Android API 36 emulator, package `org.myfastingapp.app`.
 
@@ -12,7 +12,7 @@ Passed:
 .\gradlew.bat check assembleRelease bundleRelease --stacktrace
 ```
 
-Current release audit did not rerun connected emulator tests. The local emulator currently fails to start because Android hardware acceleration is unavailable on this machine. Prior instrumentation passes covered the API 36 emulator.
+Current release audit did not rerun connected emulator tests because no emulator or physical device is connected. Prior instrumentation passes covered the API 36 emulator.
 
 Unit and instrumentation coverage includes timer math, stats, weight trend projection, backup parsing, stress backup round trip, Room DAO behavior, Compose primary dashboard action, widget provider discovery, widget idle rendering, widget active/progress rendering, and widget start/end broadcast actions.
 
@@ -24,7 +24,7 @@ Widget service registration was also checked with `dumpsys appwidget`; Android r
 - Test-install release APK: `app/build/outputs/apk/release/app-release.apk`
 - Release AAB: `app/build/outputs/bundle/release/app-release.aab`
 
-The release APK and AAB are built, minified, shrunk, and signed with the generated MyFastingApp upload key.
+The release APK and AAB are built, minified, shrunk, and signed with the MyFastingApp release key.
 
 Upload certificate:
 
@@ -48,7 +48,17 @@ Artifact and source scans found no stale development names or production sample-
 
 ## Widget Audit
 
-The widget root now uses an opaque cream background with a subtle border instead of transparency, so text remains legible over light, dark, and photographic wallpapers. Widget updates now use `goAsync()` during provider updates, and widget/boot/reminder paths repair active built-in plan targets before rendering or notifying.
+The widget root uses an opaque cream background with a subtle border, so text remains legible over light, dark, and photographic wallpapers. Widget updates use `goAsync()` during provider updates, render one shared `RemoteViews` payload for all instances, and do not run a continuously ticking chronometer or periodic refresh worker.
+
+## Battery Audit
+
+- The Compose one-second timer is lifecycle-aware and runs only while an active fast is visible in a resumed activity.
+- The previous ten-minute `RTC_WAKEUP` notification polling loop was removed.
+- Background notifications and the widget use event-driven minute snapshots.
+- Six requested milestone alerts may wake the device during a fast.
+- Phase-only status updates use non-waking alarms.
+- Target reminders are only scheduled when enabled by the user.
+- No foreground service, WorkManager job, wake lock, exact alarm, or periodic widget update is used.
 
 ## Manual Walkthrough Screenshots
 
@@ -71,9 +81,9 @@ The backup unit stress test round-tripped 400 sessions and 365 weights through J
 
 An Android Monkey run was attempted with 300 events before the rename. The emulator generated noisy system tombstone monitor output, so the run was aborted and is not counted as a conclusive pass. Checked logs did not show a MyFastingApp `FATAL EXCEPTION` or ANR during that attempt.
 
-## Remaining Pre-Store Checks
+## Remaining Release Checks
 
 - Run on at least one physical device.
-- Run Google Play pre-launch report after internal testing upload.
-- Confirm screenshots on tablet/foldable layouts if those form factors are targeted.
+- Check Android battery usage across one complete fast after installing 1.0.1.
+- Confirm the F-Droid reproducible-build comparison passes.
 - Replace privacy/contact placeholders with public store-ready URLs and email.

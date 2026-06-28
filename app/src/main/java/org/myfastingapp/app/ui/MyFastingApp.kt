@@ -66,7 +66,6 @@ import androidx.compose.material3.lightColorScheme
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -91,6 +90,10 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.compose.LocalLifecycleOwner
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.repeatOnLifecycle
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.myfastingapp.app.domain.FastPlan
@@ -114,13 +117,16 @@ import kotlin.math.roundToInt
 
 @Composable
 fun MyFastingApp(viewModel: MyFastingAppViewModel) {
-    val uiState by viewModel.uiState.collectAsState()
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val snackbarHostState = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
+    val lifecycleOwner = LocalLifecycleOwner.current
     var selectedTab by rememberSaveable { mutableStateOf(AppTab.Timer) }
 
-    LaunchedEffect(viewModel) {
-        viewModel.messages.collect { snackbarHostState.showSnackbar(it) }
+    LaunchedEffect(viewModel, lifecycleOwner) {
+        lifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+            viewModel.messages.collect { snackbarHostState.showSnackbar(it) }
+        }
     }
 
     MyFastingAppTheme {
@@ -178,11 +184,17 @@ private fun TimerScreen(
 ) {
     var now by remember { mutableLongStateOf(System.currentTimeMillis()) }
     var editing by remember { mutableStateOf<FastSession?>(null) }
+    val lifecycleOwner = LocalLifecycleOwner.current
 
-    LaunchedEffect(uiState.activeSession?.id) {
-        while (true) {
-            now = System.currentTimeMillis()
-            delay(1_000L)
+    LaunchedEffect(uiState.activeSession?.id, lifecycleOwner) {
+        now = System.currentTimeMillis()
+        if (uiState.activeSession != null) {
+            lifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.RESUMED) {
+                while (true) {
+                    now = System.currentTimeMillis()
+                    delay(1_000L)
+                }
+            }
         }
     }
 

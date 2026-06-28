@@ -73,6 +73,7 @@ class MyFastingAppWidgetProviderTest {
         assertEquals(View.VISIBLE, root.findViewById<View>(R.id.widget_active_panel).visibility)
         assertEquals("Stored glucose", root.findViewById<TextView>(R.id.widget_phase).text.toString())
         assertTrue(root.findViewById<TextView>(R.id.widget_status).text.contains("%"))
+        assertEquals("08:00", root.findViewById<TextView>(R.id.widget_time).text.toString())
         assertTrue(root.findViewById<TextView>(R.id.widget_remaining).text.contains("remaining"))
         assertNotNull(root.findViewById<ImageView>(R.id.widget_ring).drawable)
     }

@@ -1,6 +1,6 @@
 # MyFastingApp App Reference
 
-MyFastingApp is a GPL-3.0-only, offline-first Android fasting tracker. The package id is `org.myfastingapp.app`, minSdk is 26, targetSdk is 36, and app version `1.0.0` maps to versionCode `1`.
+MyFastingApp is a GPL-3.0-only, offline-first Android fasting tracker. The package id is `org.myfastingapp.app`, minSdk is 26, targetSdk is 36, and app version `1.0.1` maps to versionCode `2`.
 
 ## Release Invariants
 
@@ -110,6 +110,12 @@ MyFastingApp uses two notification channels:
 
 Milestones are scheduled for 25%, 50%, 75%, 90%, 95%, and 100% of the active fast target. Scheduling uses OS-managed local alarms/reminders and does not request exact alarm special access.
 
+The app does not poll in the background. The one-second timer runs only while the
+timer screen is visible and the activity is resumed. Notifications and the widget
+show minute-precision snapshots and refresh only after user actions or meaningful
+fast events. Milestones may wake the device; phase-only updates use non-waking
+alarms, and target reminders are optional.
+
 ## Widget
 
 The widget has two states:
@@ -117,7 +123,7 @@ The widget has two states:
 - Idle: app name, prompt to start, default-plan start button, and open-app control.
 - Active: progress ring bitmap, elapsed/remaining status, phase label, start/end/open controls.
 
-The widget uses RemoteViews for launcher compatibility and a rendered bitmap ring for visual parity with the app. Its root uses an opaque cream background with a subtle border so text remains readable across light, dark, and photographic wallpapers.
+The widget uses RemoteViews for launcher compatibility and a rendered bitmap ring for visual parity with the app. Its root uses an opaque cream background with a subtle border so text remains readable across light, dark, and photographic wallpapers. It does not run a continuously ticking chronometer or request periodic polling.
 
 ## Stress Testing
 

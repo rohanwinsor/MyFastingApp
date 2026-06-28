@@ -1,0 +1,6 @@
+1.0.1 battery optimization update.
+
+- Stops second-by-second timer work when the app is in the background.
+- Removes ten-minute background polling.
+- Uses event-driven widget and notification updates.
+- Keeps fasting milestones with lower-power phase refreshes.
